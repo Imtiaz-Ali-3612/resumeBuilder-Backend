@@ -33,24 +33,26 @@ exports.loginUser=(req,res,next)=>{
                 jwt.sign(user,config.secretKey,(err,usertoken)=>{
                     if(err){
                         next(err);
-                        res.json("ERROR OCCURED")
+                        res.json({error:true,message:"ERROR OCCURED"})
                         return;
                     }
                     console.log(usertoken)
-                    res.json({message:'logged in successful',usertoken:usertoken})
+                    res.json({error:false,message:'logged in successful',usertoken:usertoken})
                     next();
                 })
 
             }else{
-                res.json('Password is incorrect')
+                res.status(509).json({error:true,message:'Password is incorrect'})
                 next();
             }
         }else {
-            res.json('user not found')
+            res.status(404).json({error:true,message:'user not found'})
             next();
         }
     }).catch(
-        err=>{ next(err) }
+        err=>{ 
+            res.status(509).json({error:true,message:err.message})
+            next(err) }
     )
 
 }

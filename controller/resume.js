@@ -39,10 +39,11 @@ exports.setUserInfo=(req,res,next)=>{
 exports.setEducationInfo=(req,res,next)=>{
     
     console.log(req.user)
-    var {school,grade,title}=req.body;
+    var {school,grade,title,from,to}=req.body;
     var user_email=req.user.email;
-    db.execute('insert into `education` (school,grade,user_email,title) values (?,?,?,?)',[school,grade,user_email,title])
+    db.execute('insert into `education` (`school`,`grade`,`user_email`,`title`,`from`,`to`) values (?,?,?,?,?,?)',[school,grade,user_email,title,from,to])
     .then(user=>{
+         console.log('added info')
          res.status(200).json({message:"Added data for Education."})
          next();
 
@@ -50,7 +51,7 @@ exports.setEducationInfo=(req,res,next)=>{
     .catch(
         err=>{
             res.status(401).json({message:err.message,code:err.code})
-            next();
+            next(err);
         }
     )
 }
@@ -60,7 +61,7 @@ exports.getEducationInfo=(req,res,next)=>{
     db.execute('Select * from `education`  where user_email=?',[email])
     .then(
         ep=>{
-            res.json({education:ep[0]})
+            res.status(200).json({education:ep[0]})
             next();
         }
     ).catch(err=>{
@@ -68,6 +69,22 @@ exports.getEducationInfo=(req,res,next)=>{
         res.status(401).json({message:err.message,code:err.code})
         next(err);
     })
+}
+exports.deleteEducationInfo=(req,res,next)=>{
+    var education_id=req.params.education_id;
+    console.log('deleting :' ,education_id)
+    db.execute('DELETE FROM education WHERE education_id =?',[education_id])
+    .then(
+        ep=>{
+            res.status(200).json({message:'Deleted Successfully'});
+            next();
+        }
+    ).catch(
+        err=>{
+            res.status(401).json({message:err.message,code:err.code})
+            next();
+        }
+    )
 }
 
 exports.setExperianceInfo=(req,res,next)=>{
@@ -79,10 +96,11 @@ exports.setExperianceInfo=(req,res,next)=>{
 //     details,
 //     user_email
 //     }
+
     console.log(req.user)
-    var {   job_title,start_date,end_date,details}=req.body;
+    var {   job_title,from,to,details}=req.body;
     var user_email=req.user.email;
-    db.execute('insert into `experiance` (job_title,start_date,end_date,details,user_email) values (?,?,?,?,?)',[job_title,start_date,end_date,details,user_email])
+    db.execute('insert into `experiance` (`job_title`,`from`,`to`,`details`,`user_email`) values (?,?,?,?,?)',[job_title,from,to,details,user_email])
     .then(user=>{
          res.status(200).json({message:"Added data for Experiance."})
          next();
@@ -110,6 +128,23 @@ exports.getExperianceInfo=(req,res,next)=>{
         next(err);
     })
 }
+exports.deleteExperianceInfo=(req,res,next)=>{
+    var experiance_id=req.params.experiance_id;
+    console.log('deleting :' ,experiance_id)
+    db.execute('DELETE FROM experiance WHERE experiance_id =?',[experiance_id])
+    .then(
+        ep=>{
+            res.status(200).json({message:'Deleted Successfully'});
+            next();
+        }
+    ).catch(
+        err=>{
+            res.status(401).json({message:err.message,code:err.code})
+            next();
+        }
+    )
+}
+
 
 
 exports.setProjectInfo=(req,res,next)=>{
@@ -151,16 +186,20 @@ exports.setProjectInfo=(req,res,next)=>{
     }
     
 
-exports.getMyRecipe=(req,res,next)=>{
-    console.log(req.user);
-    db.execute('Select * from recipe, user where User_email=email and email = ?' ,[req.user.email])
-    .then(
-        ep=>{
-            res.json(ep[0])
-            next();
-        }
-    ).catch(err=>{
-        console.log(err);
-        next(err);
-    })
-}
+    exports.deleteProjectInfo=(req,res,next)=>{
+        var project_id=req.params.project_id;
+        console.log('deleting :' ,project_id)
+        db.execute('DELETE FROM project WHERE project_id =?',[project_id])
+        .then(
+            ep=>{
+                res.status(200).json({message:'Deleted Successfully'});
+                next();
+            }
+        ).catch(
+            err=>{
+                res.status(401).json({message:err.message,code:err.code})
+                next();
+            }
+        )
+    }
+    
