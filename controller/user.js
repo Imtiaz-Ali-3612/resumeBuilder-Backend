@@ -4,7 +4,7 @@ var db=require('../dbConfig'),
 
 exports.signupUser=(req,res,next)=>{
     var {email,password} = req.body;
-    db.execute('insert into User (email,password) values (?,?)',[email,password]).then(
+    db.execute('insert into user (email,password) values (?,?)',[email,password]).then(
         user=>{
             console.log('user is created',user)
             res.status(200).json({message:'user created'})
@@ -21,7 +21,7 @@ exports.signupUser=(req,res,next)=>{
 exports.loginUser=(req,res,next)=>{
     var {email,password}=req.body;
     console.log(email)
-    db.execute('select * from `User` where email= ? ',[email])
+    db.execute('select * from `user` where email= ? ',[email])
     .then(user=>{
         var userData=user[0][0];
         if(userData){
