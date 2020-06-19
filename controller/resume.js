@@ -5,7 +5,7 @@ var db=require('../dbConfig')
 
 exports.getUserInfo=(req,res,next)=>{
     var email=req.user.email;
-    db.execute('Select * from user  where email=?',[email])
+    db.execute('select * from user  where email=?',[email])
     .then(
         ep=>{
             res.json({user:ep[0][0]})
@@ -58,7 +58,7 @@ exports.setEducationInfo=(req,res,next)=>{
 exports.getEducationInfo=(req,res,next)=>{
     var email=req.user.email;
     console.log(email)
-    db.execute('Select * from `education`  where user_email=?',[email])
+    db.execute('select * from `education`  where user_email=?',[email])
     .then(
         ep=>{
             res.status(200).json({education:ep[0]})
@@ -73,7 +73,7 @@ exports.getEducationInfo=(req,res,next)=>{
 exports.deleteEducationInfo=(req,res,next)=>{
     var education_id=req.params.education_id;
     console.log('deleting :' ,education_id)
-    db.execute('DELETE FROM education WHERE education_id =?',[education_id])
+    db.execute('delete from education where education_id =?',[education_id])
     .then(
         ep=>{
             res.status(200).json({message:'Deleted Successfully'});
@@ -116,7 +116,7 @@ exports.setExperianceInfo=(req,res,next)=>{
 exports.getExperianceInfo=(req,res,next)=>{
     var email=req.user.email;
     console.log(email)
-    db.execute('Select * from `experiance`  where user_email=?',[email])
+    db.execute('select * from `experiance`  where user_email=?',[email])
     .then(
         ep=>{
             res.json({experiance:ep[0]})
@@ -131,7 +131,7 @@ exports.getExperianceInfo=(req,res,next)=>{
 exports.deleteExperianceInfo=(req,res,next)=>{
     var experiance_id=req.params.experiance_id;
     console.log('deleting :' ,experiance_id)
-    db.execute('DELETE FROM experiance WHERE experiance_id =?',[experiance_id])
+    db.execute('delete from experiance where experiance_id =?',[experiance_id])
     .then(
         ep=>{
             res.status(200).json({message:'Deleted Successfully'});
@@ -172,7 +172,7 @@ exports.setProjectInfo=(req,res,next)=>{
     exports.getProjectInfo=(req,res,next)=>{
         var email=req.user.email;
         console.log(email)
-        db.execute('Select * from `project`  where user_email=?',[email])
+        db.execute('select * from `project`  where user_email=?',[email])
         .then(
             ep=>{
                 res.json({projects:ep[0]})
@@ -189,7 +189,7 @@ exports.setProjectInfo=(req,res,next)=>{
     exports.deleteProjectInfo=(req,res,next)=>{
         var project_id=req.params.project_id;
         console.log('deleting :' ,project_id)
-        db.execute('DELETE FROM project WHERE project_id =?',[project_id])
+        db.execute('delete from project where project_id =?',[project_id])
         .then(
             ep=>{
                 res.status(200).json({message:'Deleted Successfully'});
