@@ -10,6 +10,10 @@ var resumeRoutes=require('./routes/resumeRoutes'),
 var app =express();
 app.use(bodyParser.json())
 
+app.get('/',(req,res)=>{
+    res.send('<div><h1>Welcome To the Resume Builder App Back-End</h1><br> <i>contact: imtiaz.ali.3612@gmail.com</i></div>')
+})
+
 app.use('/user',userRoutes);
 
 app.use('/resume',resumeRoutes);
