@@ -58,7 +58,7 @@ app.get('/retrieve-img',(req,res)=>{
         }
     }
    let randomImage=files["file"+(Math.floor(Math.random() * 5+1))]
-    let bas64='data:image/'+img.ContentType+';base64,'+ base64_encode(randomImage.path) 
+    let bas64='data:image/'+randomImage.ContentType+';base64,'+ base64_encode(randomImage.path) 
     
     randomImage.path=bas64
     res.send(randomImage)
