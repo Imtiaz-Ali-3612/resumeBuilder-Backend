@@ -25,27 +25,36 @@ app.get('/retrieve-img',(req,res)=>{
         file1:{
             name:"item1",
             brand:"brand1",
-            path:"./images/1.jpg"
+            path:"./images/1.jpg",
+            ContentType:"jpg"
         },
         file2:{
             name:"item2",
             brand:"brand2",
-            path:"./images/2.jpeg"
+            path:"./images/2.jpeg",
+            ContentType:"jpeg"
+
         },
         file3:{
             name:"item3",
             brand:"brand3",
-            path:"./images/3.png"
+            path:"./images/3.png",
+            ContentType:"png"
+
         },
         file4:{
             name:"item4",
             brand:"brand4",
-            path:"./images/4.jpg"
+            path:"./images/4.jpeg",
+            ContentType:"jpeg"
+
         },
         file5:{
             name:"item5",
             brand:"brand5",
-            path:"./images/5.jpg"
+            path:"./images/5.jpg",
+            ContentType:"jpg"
+
         }
     }
    let randomImage=files["file"+(Math.floor(Math.random() * 5+1))]
